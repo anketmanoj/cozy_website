@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:url_navigation_web/LandingPage.dart';
 import 'package:url_navigation_web/SplashScreen.dart';
 import 'package:url_navigation_web/pages/TestPage.dart';
+import 'package:url_navigation_web/user/register.dart';
 
 class Flurorouter {
   static final FluroRouter router = FluroRouter();
@@ -25,10 +26,8 @@ class Flurorouter {
             extra: params['extra'][0],
           ));
 
-  static Handler _testHandler = Handler(
-      handlerFunc: (context, params) => TestPage(
-            id: params['id'][0],
-          ));
+  static Handler _registerHandler =
+      Handler(handlerFunc: (context, params) => Register());
 
   // ok its all set now .....
   // now lets have a handler for passing parameter tooo....
@@ -51,8 +50,8 @@ class Flurorouter {
     );
 
     router.define(
-      '/test/:id',
-      handler: _testHandler,
+      '/register',
+      handler: _registerHandler,
       transitionType: TransitionType.fadeIn,
     );
   }

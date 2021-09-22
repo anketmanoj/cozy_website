@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -13,9 +14,9 @@ class _SplashScreenState extends State<SplashScreen> {
     });
     return Scaffold(
       body: Container(
-        child: Text(
-          'Splash Screen...',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0),
+        child: SpinKitChasingDots(
+          color: Colors.lightBlue,
+          size: 100,
         ),
       ),
     );

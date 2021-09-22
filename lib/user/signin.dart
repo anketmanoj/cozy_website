@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_navigation_web/constants/loading.dart';
 import 'package:url_navigation_web/services/auth.dart';
 
 class SignIn extends StatefulWidget {
@@ -14,144 +15,167 @@ class _SignInState extends State<SignIn> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _passwordVisible = true;
+  bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Row(
-          children: [
-            Expanded(
-              child: Container(
-                height: size.height,
-                width: size.width,
-                child: Image.asset(
-                  'assets/hotelRoom.jpg',
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                height: size.height,
-                width: size.width,
-                padding: EdgeInsets.all(60),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Column(
-                        children: [
-                          Container(
-                            height: 150,
-                            width: 150,
-                            child: Image.asset(
-                              'assets/cozy_logo.png',
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          Text(
-                            "Welcome to Cozy Homes Rental. Sign In and take the first steps to you incredible vacation!",
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(
-                            height: 50,
-                          ),
-                          TextFormField(
-                            validator: (value) {
-                              if (value.toString().length >= 1) {
-                                return null;
-                              } else {
-                                return "Please enter a valid email";
-                              }
-                            },
-                            controller: _emailController,
-                            decoration: formDecoration(
-                              hintName: "Enter Your Email",
-                              icon: Icons.email_outlined,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          TextFormField(
-                            obscureText: _passwordVisible,
-                            validator: (value) {
-                              if (value.toString().length >= 6) {
-                                return null;
-                              } else {
-                                return "Password must be at least 6 Characters long";
-                              }
-                            },
-                            controller: _passwordController,
-                            decoration: formDecoration(
-                              hintName: "Enter Your Password",
-                              icon: Icons.password_outlined,
-                            ).copyWith(
-                                suffixIcon: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        _passwordVisible = !_passwordVisible;
-                                      });
-                                    },
-                                    icon: Icon(_passwordVisible
-                                        ? Icons.visibility_off_outlined
-                                        : Icons.visibility_outlined))),
-                          ),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: ElevatedButton.icon(
-                                  onPressed: () async {
-                                    // _submitForm();
-                                  },
-                                  icon: Icon(Icons.login_outlined),
-                                  label: Text("Login"),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Divider(),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            "Are you a new user? Click the link below to register now!",
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          TextButton(
-                            onPressed: () {},
-                            child: Text("Sign Up"),
-                          ),
-                        ],
+    return _loading
+        ? Loading()
+        : Scaffold(
+            body: Form(
+              key: _formKey,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: size.height,
+                      width: size.width,
+                      child: Image.asset(
+                        'assets/hotelRoom.jpg',
+                        fit: BoxFit.fill,
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                  Expanded(
+                    child: Container(
+                      height: size.height,
+                      width: size.width,
+                      padding: EdgeInsets.all(60),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Column(
+                              children: [
+                                Container(
+                                  height: 150,
+                                  width: 150,
+                                  child: Image.asset(
+                                    'assets/cozy_logo.png',
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 40,
+                                ),
+                                Text(
+                                  "Welcome to Cozy Homes Rental. Sign In and take the first steps to you incredible vacation!",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 16,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(
+                                  height: 50,
+                                ),
+                                TextFormField(
+                                  validator: (value) {
+                                    if (value.toString().length >= 1) {
+                                      return null;
+                                    } else {
+                                      return "Please enter a valid email";
+                                    }
+                                  },
+                                  controller: _emailController,
+                                  decoration: formDecoration(
+                                    hintName: "Enter Your Email",
+                                    icon: Icons.email_outlined,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                TextFormField(
+                                  obscureText: _passwordVisible,
+                                  validator: (value) {
+                                    if (value.toString().length >= 6) {
+                                      return null;
+                                    } else {
+                                      return "Password must be at least 6 Characters long";
+                                    }
+                                  },
+                                  controller: _passwordController,
+                                  decoration: formDecoration(
+                                    hintName: "Enter Your Password",
+                                    icon: Icons.password_outlined,
+                                  ).copyWith(
+                                      suffixIcon: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              _passwordVisible =
+                                                  !_passwordVisible;
+                                            });
+                                          },
+                                          icon: Icon(_passwordVisible
+                                              ? Icons.visibility_off_outlined
+                                              : Icons.visibility_outlined))),
+                                ),
+                                SizedBox(
+                                  height: 40,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: ElevatedButton.icon(
+                                        onPressed: () async {
+                                          if (_formKey.currentState
+                                              .validate()) {
+                                            setState(() {
+                                              _loading = true;
+                                            });
+                                            dynamic result = await _authService
+                                                .signInWithEmailAndPassword(
+                                                    email: _emailController.text
+                                                        .toString(),
+                                                    password:
+                                                        _passwordController.text
+                                                            .toString());
+                                            if (result == null) {
+                                              setState(() {
+                                                _loading = false;
+                                              });
+                                              print("could not sign in");
+                                            }
+                                          }
+                                        },
+                                        icon: Icon(Icons.login_outlined),
+                                        label: Text("Login"),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Divider(),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Text(
+                                  "Are you a new user? Click the link below to register now!",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 16,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pushNamed(context, '/register'),
+                                  child: Text("Sign Up"),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
+          );
   }
 
   InputDecoration formDecoration({String hintName, IconData icon}) {
